@@ -1,0 +1,10 @@
+Buatlah program untuk pencarian data dalam sebuah kumpulan array menggunakan binary
+search berikut ini:
+Array : 19, 40, 10, 90, 2, 50, 60, 50, 1
+  Lakukan Test Case (Pengujian) dengan aturan sebagai berikut :
+  a. Input : 1
+      Output : Angka 1 ada di indeks ke 9
+  b. Input : 50
+      Output : Angka 50 ada di indeks ke 6 dan 8
+  c. Input : 100
+      Output : Angka 100 tidak ada dalam array
