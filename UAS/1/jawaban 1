@@ -87,3 +87,34 @@ int main() {
   //Mengakhiri fungsi main dengan mengembalikan nilai 0 yang berarti program berakhir dengan sukses 
    return 0;
   }
+
+Output:
+Data sebelum diurutkan:
+Fahmi     Jakarta
+Romi      Solo
+Andri     Jakarta
+Fadillah  Banyuwangi
+Ruli      Bandung
+Rudi      Bali
+Dendi     Purwokerto
+Zaki      Madiun
+
+Data setelah diurutkan dengan Bubble Sort:
+Andri     Jakarta
+Dendi     Purwokerto
+Fadillah  Banyuwangi
+Fahmi     Jakarta
+Romi      Solo
+Rudi      Bali
+Ruli      Bandung
+Zaki      Madiun
+
+Data setelah diurutkan dengan Selection Sort:
+Andri      Jakarta
+Dendi      Purwokerto
+Fadillah   Banyuwangi
+Fahmi      Jakarta
+Romi       Solo
+Rudi       Bali
+Ruli       Bandung
+Zaki       Madiun
