@@ -11,3 +11,79 @@ Zaki            Madiun
 
 Buatlah program untuk mengurutkan data berikut ini, menggunakan Bubble Sort dan
 Selection Sort.
+//Bagian untuk mengimpor header iostream untuk I/O ada vektor dan string
+#include <iostream>
+#include <vector>
+#include <string>
+
+//Indra Purnomo
+//230401020031
+
+//Bagian untuk mendefinisikan struck data yang terdiri dari nama, dan alamat dengan tipe data string
+using namespace std;
+struct Data {
+    string nama;
+    string alamat;
+};
+// Fungsi untuk mencetak data, const berfungsi agar data vektor tidak berubah
+void printData(const vector<Data>& data) {
+    for (const auto& d : data) {
+        cout << d.nama << "\t" << d.alamat << endl;
+    }
+}
+// Fungsi bubblesort digunakan untuk mengurutkan vektor data dengan algoritma bubblesort, dimana n untuk menyimpan vektor dan perintah for untuk membandingkan elemen dan menukar elemen jika elemen yang pertama lebih besar dengan elemen yang kedua
+void bubbleSort(vector<Data>& data) {
+    int n = data.size();
+    for (int i = 0; i < n - 1; ++i) {
+        for (int j = 0; j < n - i - 1; ++j) {
+            if (data[j].nama > data[j + 1].nama) {
+                swap(data[j], data[j + 1]);
+            }
+        }
+    }
+}
+// Fungsi selectionsort digunakan untuk mengurutkan vektor data dengan algoritma selectionsort, dimana n untuk menyimpan data vektor dan perintah for digunakan untuk mencari elemen dengan nilai minimum diantara elemen yang belum diurutkan, kemudian menukarnya dengan selemen yang berada pada posisi i
+void selectionSort(vector<Data>& data) {
+    int n = data.size();
+    for (int i = 0; i < n - 1; ++i) {
+        int minIndex = i;
+        for (int j = i + 1; j < n; ++j) {
+            if (data[j].nama < data[minIndex].nama) {
+                minIndex = j;
+            }
+        }
+        if (minIndex != i) {
+            swap(data[i], data[minIndex]);
+        }
+    }
+}
+//Fungsi main untuk menginisialisasi vektor data nama dan alamat
+int main() {
+    vector<Data> data = {
+        {"Fahmi", "Jakarta"},
+        {"Romi", "Solo"},
+        {"Andri", "Jakarta"},
+        {"Fadillah", "Banyuwangi"},
+        {"Ruli", "Bandung"},
+        {"Rudi", "Bali"},
+        {"Dendi", "Purwokerto"},
+        {"Zaki", "Madiun"}
+    };
+    //Mencetak data sebelum diurutkan seperti data diatas
+    cout << "Data sebelum diurutkan:" << endl;
+    printData(data);
+
+  //Digunakan untuk membuat salinan vektor data , mengurutkan dengan   bubblesort dan mencetak hasil
+    vector<Data> bubbleSortedData = data;
+    bubbleSort(bubbleSortedData);
+    cout << "\nData setelah diurutkan dengan Bubble Sort:" << endl;
+    printData(bubbleSortedData);
+
+  //Digunakan untuk membuat salinan vektor data , mengurutkan dengan   selectionsort dan mencetak hasil
+    vector<Data> selectionSortedData = data;
+    selectionSort(selectionSortedData);
+    cout << "\nData setelah diurutkan dengan Selection Sort:" << endl;
+    printData(selectionSortedData);
+  //Mengakhiri fungsi main dengan mengembalikan nilai 0 yang berarti program berakhir dengan sukses 
+   return 0;
+  }
