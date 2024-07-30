@@ -8,3 +8,112 @@ Array : 19, 40, 10, 90, 2, 50, 60, 50, 1
       Output : Angka 50 ada di indeks ke 6 dan 8
   c. Input : 100
       Output : Angka 100 tidak ada dalam array
+
+//Bagian untuk mengimpor header iostream untuk I/O ada vektor dan algorithm
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+//Indra Purnomo
+//230401020031
+
+using namespace std;
+
+//Bagian untuk menyimpan nilai (value) dan indeks asli dari elemen array
+struct IndexedValue {
+    int value;
+    int originalIndex;
+};
+//Fungsi binarySearch menerima array arr yang sudah terurut dan target pencarian target.
+Variabel indices: Menyimpan hasil pencarian.
+Proses pencarian menggunakan metode binary search.
+Jika elemen arr[mid].value sama dengan target, indeks asli dari elemen-elemen tersebut (yang memiliki nilai sama dengan target) ditambahkan ke indices.
+Setelah menemukan elemen yang sesuai, dilakukan pencarian ke kiri (temp--) dan ke kanan (temp++) dari mid untuk menemukan semua elemen yang sama.
+Indeks yang ditemukan diubah ke 1-based index dengan menambahkan 1.
+Sorting: Indeks-indeks hasil pencarian diurutkan secara ascending sebelum dikembalikan.
+vector<int> binarySearch(const vector<IndexedValue>& arr, int target) {
+    vector<int> indices;
+    int left = 0;
+    int right = arr.size() - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid].value == target) {
+            // Temukan semua elemen yang sama dengan target
+            int temp = mid;
+            while (temp >= left && arr[temp].value == target) {
+                indices.push_back(arr[temp].originalIndex + 1); // +1 untuk mengubah ke 1-based index
+                temp--;
+            }
+            temp = mid + 1;
+            while (temp <= right && arr[temp].value == target) {
+                indices.push_back(arr[temp].originalIndex + 1); // +1 untuk mengubah ke 1-based index
+                temp++;
+            }
+            break;
+        }
+        if (arr[mid].value < target) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+    sort(indices.begin(), indices.end());
+    return indices;
+}
+//Fungsi main/otak program akan menampilkan data array sebelum diurutkan, kemudian mengurutkan array dengan fungsi sort, setelah itu akan melakukan pencarian data pada array sesuai dengan input dari user/pengguna 
+int main() {
+    vector<IndexedValue> arr = {
+        {19, 0}, {40, 1}, {10, 2}, {90, 3}, {2, 4}, 
+        {50, 5}, {60, 6}, {50, 7}, {1, 8}
+    };
+    cout << "Array: ";
+    for (const auto& item : arr) {
+        cout << item.value << " ";
+    }
+    cout << endl;
+    // Urutkan array berdasarkan nilai
+    sort(arr.begin(), arr.end(), [](const IndexedValue& a, const IndexedValue& b) {
+        return a.value < b.value;
+    });
+    while (true) {
+        string input;
+        cout << "Masukkan input angka yang ingin dicari (atau ketik 'selesai' untuk mengakhiri): ";
+        cin >> input;
+        if (input == "selesai") {
+            cout << "Program diakhiri." << endl;
+            break;
+        }
+        int testCase;
+        try {
+            testCase = stoi(input);  // Konversi string ke integer
+        } catch (invalid_argument& e) {
+            cout << "Input tidak valid. Silakan masukkan angka atau ketik 'selesai'." << endl;
+            continue;
+        }
+        vector<int> result = binarySearch(arr, testCase);
+        if (!result.empty()) {
+            cout << "Angka " << testCase << " ada di indeks ke ";
+            for (size_t i = 0; i < result.size(); ++i) {
+                if (i > 0) cout << " dan ";
+                cout << result[i];
+            }
+            cout << endl;
+        } else {
+            cout << "Angka " << testCase << " tidak ada dalam array" << endl;
+        }
+    }
+//Mengakhiri fungsi main dengan mengembalikan nilai 0 yang berarti program berakhir dengan sukses
+    return 0;
+}
+// Jadi program ini meminta input dari pengguna untuk mencari nilai tertentu. Jika pengguna mengetik "selesai", program akan berhenti. Input pengguna dikonversi menjadi integer dan digunakan sebagai target pencarian. Hasil pencarian ditampilkan sebagai indeks 1-based dari elemen yang sesuai
+
+Output:
+Array: 19 40 10 90 2 50 60 50 1 
+Masukkan input angka yang ingin dicari (atau ketik 'selesai' untuk mengakhiri): 1
+Angka 1 ada di indeks ke 9
+Masukkan input angka yang ingin dicari (atau ketik 'selesai' untuk mengakhiri): 50
+Angka 50 ada di indeks ke 6 dan 8
+Masukkan input angka yang ingin dicari (atau ketik 'selesai' untuk mengakhiri): 100
+Angka 100 tidak ada dalam array
+Masukkan input angka yang ingin dicari (atau ketik 'selesai' untuk mengakhiri): selesai
+Program diakhiri.
